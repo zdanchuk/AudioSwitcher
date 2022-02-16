@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>4.0.0-alpha6</Version>
+    <Version>4.0.0-alpha7</Version>
     <Title>Audio Switcher Api</Title>
     <Authors>Sean Chapman</Authors>
     <Owners>Sean Chapman</Owners>
