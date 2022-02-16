@@ -36,6 +36,8 @@ namespace AudioSwitcher.AudioApi.Session
 
         IObservable<SessionDisconnectedArgs> Disconnected { get; }
 
+        IObservable<SessionDisplayNameChangedArgs> DisplayNameChanged { get; }
+
         Task<double> GetVolumeAsync();
         Task<double> GetVolumeAsync(CancellationToken cancellationToken);
 

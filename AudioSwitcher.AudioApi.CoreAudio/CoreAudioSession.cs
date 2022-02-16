@@ -21,6 +21,7 @@ namespace AudioSwitcher.AudioApi.CoreAudio
         private readonly Broadcaster<SessionPeakValueChangedArgs> _peakValueChanged;
         private readonly Broadcaster<SessionStateChangedArgs> _stateChanged;
         private readonly Broadcaster<SessionVolumeChangedArgs> _volumeChanged;
+        private readonly Broadcaster<SessionDisplayNameChangedArgs> _displayNameChanged;
         private readonly AutoResetEvent _volumeResetEvent = new AutoResetEvent(false);
         private readonly AutoResetEvent _muteResetEvent = new AutoResetEvent(false);
         private IDisposable _timerSubscription;
@@ -70,6 +71,7 @@ namespace AudioSwitcher.AudioApi.CoreAudio
             _volumeChanged = new Broadcaster<SessionVolumeChangedArgs>();
             _muteChanged = new Broadcaster<SessionMuteChangedArgs>();
             _peakValueChanged = new Broadcaster<SessionPeakValueChangedArgs>();
+            _displayNameChanged = new Broadcaster<SessionDisplayNameChangedArgs>();
 
             AudioSessionControl.RegisterAudioSessionNotification(this);
 
@@ -101,6 +103,7 @@ namespace AudioSwitcher.AudioApi.CoreAudio
             _disconnected.Dispose();
             _volumeChanged.Dispose();
             _peakValueChanged.Dispose();
+            _displayNameChanged.Dispose();
 
 
             //Run this on the com thread to ensure it's disposed correctly
@@ -140,6 +143,8 @@ namespace AudioSwitcher.AudioApi.CoreAudio
         public IObservable<SessionStateChangedArgs> StateChanged => _stateChanged.AsObservable();
 
         public IObservable<SessionDisconnectedArgs> Disconnected => _disconnected.AsObservable();
+
+        public IObservable<SessionDisplayNameChangedArgs> DisplayNameChanged => _displayNameChanged.AsObservable();
 
         public string Id => _id;
 
@@ -244,6 +249,7 @@ namespace AudioSwitcher.AudioApi.CoreAudio
         int IAudioSessionEvents.OnDisplayNameChanged(string displayName, ref Guid eventContext)
         {
             _displayName = displayName;
+            OnDisplayNameChanged(_displayName);
             return 0;
         }
 
@@ -410,6 +416,11 @@ namespace AudioSwitcher.AudioApi.CoreAudio
         private void OnPeakValueChanged(double peakValue)
         {
             _peakValueChanged.OnNext(new SessionPeakValueChangedArgs(this, peakValue));
+        }
+
+        private void OnDisplayNameChanged(string displayName)
+        {
+            _displayNameChanged.OnNext(new SessionDisplayNameChangedArgs(this, displayName));
         }
 
         private void ThrowIfDisposed()
