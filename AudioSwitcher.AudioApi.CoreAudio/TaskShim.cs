@@ -11,7 +11,7 @@ namespace AudioSwitcher.AudioApi.CoreAudio
         {
 #if NET40
             return TaskEx.FromResult(result);
-#elif NET45
+#elif NET45_OR_GREATER
             return Task.FromResult(result);
 #endif
         }
@@ -20,7 +20,7 @@ namespace AudioSwitcher.AudioApi.CoreAudio
         {
 #if NET40
             return TaskEx.Run(action);
-#elif NET45
+#elif NET45_OR_GREATER
             return Task.Run(action);
 #endif
         }
@@ -29,7 +29,7 @@ namespace AudioSwitcher.AudioApi.CoreAudio
         {
 #if NET40
             return TaskEx.Run(action, cancellationToken);
-#elif NET45
+#elif NET45_OR_GREATER
             return Task.Run(action, cancellationToken);
 #endif
         }
@@ -38,7 +38,7 @@ namespace AudioSwitcher.AudioApi.CoreAudio
         {
 #if NET40
             return TaskEx.Run(function);
-#elif NET45
+#elif NET45_OR_GREATER
             return Task.Run(function);
 #endif
         }
@@ -47,7 +47,7 @@ namespace AudioSwitcher.AudioApi.CoreAudio
         {
 #if NET40
             return TaskEx.Run(function, cancellationToken);
-#elif NET45
+#elif NET45_OR_GREATER
             return Task.Run(function, cancellationToken);
 #endif
         }
@@ -56,7 +56,7 @@ namespace AudioSwitcher.AudioApi.CoreAudio
         {
 #if NET40
             return TaskEx.Run(function);
-#elif NET45
+#elif NET45_OR_GREATER
             return Task.Run(function);
 #endif
         }
@@ -65,7 +65,7 @@ namespace AudioSwitcher.AudioApi.CoreAudio
         {
 #if NET40
             return TaskEx.Run(function, cancellationToken);
-#elif NET45
+#elif NET45_OR_GREATER
             return Task.Run(function, cancellationToken);
 #endif
         }
@@ -74,7 +74,7 @@ namespace AudioSwitcher.AudioApi.CoreAudio
         {
 #if NET40
             return TaskEx.Run(function);
-#elif NET45
+#elif NET45_OR_GREATER
             return Task.Run(function);
 #endif
         }
@@ -83,7 +83,7 @@ namespace AudioSwitcher.AudioApi.CoreAudio
         {
 #if NET40
             return TaskEx.Run(function, cancellationToken);
-#elif NET45
+#elif NET45_OR_GREATER
             return Task.Run(function, cancellationToken);
 #endif
         }
